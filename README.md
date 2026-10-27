@@ -2,6 +2,8 @@
 
 **Your Intelligent Video Editor Assistant.** Upload a video, chat with an AI about it, and let it generate viral shorts, rough cuts, and professional color grades — ready to render or import straight into DaVinci Resolve.
 
+**Status:** soft-launched with real Stripe billing — around 500 people tried the product.
+
 ## What it does
 
 - **AI video analysis & chat** — upload a video, then chat with an AI (Google Gemini / OpenAI) about its content. The assistant can identify "viral clip" candidates inside a longer video.
