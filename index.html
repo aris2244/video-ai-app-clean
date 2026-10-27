@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/static/">  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinci-Cut AI Agent</title>
+
+    <link rel="icon" type="image/png" href="/static/Favicorn.png?v=2">
+
+
+    <meta property="og:title" content="Vinci-Cut AI Agent">
+    <meta property="og:description" content="Your Intelligent Video Editor Assistant. Generate Viral Shorts, Rough Cuts, and more.">
+
+    <meta property="og:image" content="https://www.vincicutai.com/static/preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js"></script>
+</head>
+<body>
+
+    
+    <nav class="navbar">
+    <div class="logo">
+        <i class="fas fa-film"></i> Vinci-Cut <span>AI</span>
+    </div>
+
+    <div class="nav-links">
+            <span id="nav-credits" style="color: #fbbf24; font-weight: bold; margin-right: 20px; display: none;">
+                <i class="fas fa-coins"></i> 0 Credits
+            </span>
+            
+            <a href="https://billing.stripe.com/p/login/7sY6oHb9UdKP3JRcoW4wM00" target="_blank" id="manage-sub-btn" style="color: #10b981; font-weight: bold; margin-right: 20px; display: none; text-decoration: none;">
+                <i class="fas fa-cog"></i> Manage Subscription
+            </a>
+            
+            <a href="#" id="pricing-link"><i class="fas fa-star" style="color: #fbbf24; margin-right: 5px;"></i>Pricing</a>
+            <a href="#" class="login-btn">Login</a>
+        </div>
+    </nav>
+
+    <div id="landing-screen">
+        <div class="hero-content">
+            <h1>Your Intelligent <span class="gradient-text">Video Editor Assistant</span></h1>
+            <p class="subtitle">
+                Stop wasting time on technical tasks. Upload raw footage and let AI generate 
+                <strong>Viral Shorts</strong>, <strong>Rough Cuts</strong>, <strong>Thumbnails</strong>, and <strong>GIFs</strong> instantly.
+                <br><span style="font-size: 0.9em; opacity: 0.8;">Powered by Gemini Vision</span>
+            </p>
+            
+            <div class="cards-container">
+                <div id="btn-import-media" class="feature-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>AI Media Processor</h3>
+                    <p>One upload, endless possibilities. Turn raw video into:</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fas fa-mobile-alt"></i> <strong>Viral Shorts</strong> (Vertical + Subs)</li>
+                        <li><i class="fas fa-cut"></i> <strong>Rough Cut</strong> (.EDL Timeline)</li>
+                        <li><i class="fas fa-image"></i> <strong>Thumbnails</strong> & GIFs</li>
+                        <li><i class="fas fa-music"></i> <strong>Audio Extraction</strong> (MP3)</li>
+                    </ul>
+
+                    <span class="arrow-link" style="margin-top: 15px;">Start Creating <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div id="btn-colorist" class="feature-card">
+                    <div class="icon-circle" style="color: #e83e8c; background-color: rgba(232, 62, 140, 0.1);">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>AI Colorist</h3>
+                    <p>Upload a screenshot and get exact DaVinci Resolve wheel coordinates for any cinematic look.</p>
+                    <span class="arrow-link" style="color: #e83e8c; margin-top: 15px;">Grade it <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div id="btn-resolve-help" class="feature-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3>Resolve Expert Agent</h3>
+                    <p>Stuck on a Fusion node? Colors look flat?</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-eye"></i> <strong>Vision Analysis</strong> (Upload Screenshots)</li>
+                        <li><i class="fas fa-bug"></i> <strong>Fix Node Graphs</strong></li>
+                        <li><i class="fas fa-question-circle"></i> <strong>24/7 Technical Support</strong></li>
+                    </ul>
+                    <span class="arrow-link" style="margin-top: 15px;">Ask the Expert <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="trust-section">
+            <div class="about-contact-wrapper">
+                <div class="trust-card our-story">
+                    <h2 style="font-family: 'Georgia', serif; font-style: italic;">Our Story</h2>
+                    <p>Hi, we are the creators of Vinci-Cut AI. As video editors ourselves, we were tired of spending countless hours on repetitive tasks like cutting rough drafts and formatting for social media. We built this tool to help creators like us save time and focus on the creative part of editing. No massive corporate team—just a small indie team building tools by editors, for editors.</p>
+                </div>
+                
+                <div class="trust-card contact-info">
+                    <h2>Contact & Support</h2>
+                    <p>Have a question, feedback, or any issue? We're here to help you out.</p>
+                    <a href="mailto:vincicutai@outlook.com" class="email-link">
+                        <i class="fas fa-envelope"></i> vincicutai@outlook.com
+                    </a>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                
+                <details class="faq-item">
+                    <summary><i class="fas fa-chevron-right"></i> How do I cancel my subscription?</summary>
+                    <div class="faq-answer">
+                        <p>You can cancel your subscription at any time with a single click from your account settings (Manage Subscription) and entering your email. No hidden fees, no questions asked.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary><i class="fas fa-chevron-right"></i> What does "1 Video Render = 1 Credit" mean?</summary>
+                    <div class="faq-answer">
+                        <p>Each time you process a video to generate a Rough Cut or Shorts, it consumes 1 credit. Failed renders or system errors will never consume your credits.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary><i class="fas fa-chevron-right"></i> Do you keep my uploaded videos?</summary>
+                    <div class="faq-answer">
+                        <p>No. Your privacy is our priority. All raw footage and generated files are automatically deleted from our servers shortly after processing.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <footer class="landing-footer">
+            <div class="footer-legal-links">
+                <a href="terms.html" target="_blank">Terms of Service</a>
+                <span class="separator">•</span>
+                <a href="privacy.html" target="_blank">Privacy Policy</a>
+                <span class="separator">•</span>
+                <a href="refund.html" target="_blank">Refund Policy</a>
+            </div>
+            <p>© <span id="current-year"></span> Vinci-Cut AI. Built by Editors for Editors.</p>
+        </footer>
+    </div>
+
+    <div id="chat-interface" class="hidden">
+        <button id="mobile-menu-btn" class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="chat-sidebar">
+            <button id="back-btn"><i class="fas fa-chevron-left"></i> Back to Home</button>
+            
+            <button id="new-project-btn" class="new-project-btn">
+                <i class="fas fa-plus"></i> New Project
+            </button>
+
+            <div class="history-list" id="session-list"></div>
+            
+            <div class="sidebar-footer">
+                <p>Vinci-Cut AI vFinal</p>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <h2 id="mode-title">Media Intelligence</h2>
+                <div class="status-dot"></div>
+            </div>
+
+            <div id="chat-box"></div>
+
+            <div id="upload-area" class="hidden">
+
+                <div class="upload-box">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drop your video here</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="video-input" accept="video/*">
+                </div>
+                
+                <div class="ai-actions">
+                    <p>Or choose an AI Workflow:</p>
+                    <div class="action-buttons">
+                        <button id="btn-edl-cut" class="action-btn">
+                            <i class="fas fa-magic"></i> Create Rough Cut
+                        </button>
+                        <button id="btn-highlights" class="action-btn">
+                            <i class="fas fa-fire"></i> Create Viral Shorts
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-options">
+                    <input type="text" id="video-prompt-input" placeholder="✨Custom Magic: 'Make a GIF from 00:10', 'Extract Audio','Make this vertical'...">
+                    <button id="upload-confirm-btn"><i class="fas fa-wand-magic-sparkles"></i> Custom Run</button>
+                </div>
+
+                <div id="progress-wrapper" class="hidden">
+                    <div id="upload-progress-container">
+                        <div id="upload-progress-bar"></div>
+                    </div>
+                    <span id="upload-percentage">0%</span>
+                </div>
+
+                <p id="upload-status"></p>
+            </div>
+            
+            <div id="colorist-area" class="hidden">
+                
+                <button onclick="document.getElementById('back-btn').click()" style="position: fixed; top: 20px; left: 20px; background: rgba(31, 41, 55, 0.9); padding: 10px 15px; border-radius: 8px; border: 1px solid #374151; color: white; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    <i class="fas fa-chevron-left"></i> Back to Home
+                </button>
+
+                <div id="colorist-upload-box" class="upload-box" onclick="document.getElementById('colorist-image-input').click()" style="cursor: pointer; margin-bottom: 20px;">
+                    <i class="fas fa-image"></i>
+                    <h3>Upload a Video Frame</h3>
+                    <p>Click to select a screenshot (.jpg, .png)</p>
+                    <input type="file" id="colorist-image-input" accept="image/*" style="display: none;">
+                </div>
+
+                <div id="colorist-workflow-showcase" style="max-width: 900px; margin: 40px auto 20px auto; padding: 0 20px; box-sizing: border-box;">
+        
+                <h2 style="color: white; font-size: 1.3rem; text-align: center; margin-bottom: 5px;">How it fits in your Node Tree</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 30px;">We generate the perfect mathematical CDL base for your grade.</p>
+
+                <div class="workflow-grid">
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <i class="fas fa-video" style="color: #6366f1;"></i> Standard (Rec.709) Workflow
+                        </div>
+                        <p class="workflow-desc">The AI generates a robust ASC CDL mathematical grade that instantly applies your chosen creative style (Cinematic, Dark, Warm, etc).</p>
+                        
+                        <div class="node-graph">
+                            <div class="node-box">
+                                <span class="node-num">01</span>
+                                Raw Rec.709
+                            </div>
+                            <i class="fas fa-arrow-right node-arrow"></i>
+                            
+                            <div class="node-box active-node">
+                                <span class="node-num" style="background: #e83e8c;">02</span>
+                                Vinci-Cut CDL Grade
+                                <div class="node-badge">Creative Look</div>
+                            </div>
+                            
+                            <i class="fas fa-arrow-right node-arrow"></i>
+                            
+                            <div class="node-box">
+                                <span class="node-num">03</span>
+                                Finishing Touches
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-card">
+                        <div class="workflow-header">
+                            <i class="fas fa-balance-scale" style="color: #fbbf24;"></i> LOG Workflow
+                        </div>
+                        <p class="workflow-desc">Get the exact mathematical CDL coordinates to balance your LOG footage perfectly at Point Zero, before hitting your Conversion LUT.</p>
+                        
+                        <div class="node-graph">
+                            <div class="node-box">
+                                <span class="node-num">01</span>
+                                Raw LOG
+                            </div>
+                            <i class="fas fa-arrow-right node-arrow"></i>
+                            
+                            <div class="node-box active-node">
+                                <span class="node-num" style="background: #e83e8c;">02</span>
+                                Vinci-Cut Log Balance
+                                <div class="node-badge">Point Zero CDL</div>
+                            </div>
+                            
+                            <i class="fas fa-arrow-right node-arrow"></i>
+                            <div class="node-box">
+                                <span class="node-num">03</span>
+                                Conversion LUT
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+                <div id="colorist-workspace" class="hidden">
+                    <!-- ΕΙΚΟΝΑ PREVIEW -->
+                    <div style="position: relative; display: inline-block;">
+                        <img id="colorist-preview" src="" style="max-width: 100%; max-height: 400px; border-radius: 12px; border: 1px solid #2d3342; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        
+                        <!-- ΤΟ ΝΕΟ ΚΟΥΜΠΙ LOG -->
+                        <button id="btn-toggle-log" onclick="toggleLogMode(!isLogMode)" class="log-toggle-btn">
+                            <i class="fas fa-film"></i> I have LOG Footage
+                        </button>
+                    </div>
+
+                    <!-- CONTAINER 1: ΤΑ ΣΤΥΛ ΓΙΑ REC.709 -->
+                    <div id="colorist-styles-container">
+                        <h3 style="margin-bottom: 15px;">Select a Look for Standard Footage:</h3>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+                            <button class="grade-btn" onclick="generateColorGrade('Cinematic')">🎬 Cinematic</button>
+                            <button class="grade-btn" onclick="generateColorGrade('Warm')">🌅 Warm </button>
+                            <button class="grade-btn" onclick="generateColorGrade('Cold')">🌌 Cold </button>
+                            <button class="grade-btn" onclick="generateColorGrade('Dark')">🦇 Dark</button>
+                            <button class="grade-btn" onclick="generateColorGrade('Natural Fix')">🌿 Natural Fix</button>
+                        </div>
+                    </div>
+
+                    <!-- CONTAINER 2: ΤΟ DROPDOWN ΚΑΙ ΚΟΥΜΠΙ ΓΙΑ LOG (Κρυμμένο αρχικά) -->
+                    <div id="colorist-log-container" class="hidden">
+                        <h3 style="margin-bottom: 15px; color: #fbbf24;"><i class="fas fa-balance-scale"></i> Calculate Pre-LUT Balance (Point 0)</h3>
+                        
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px;">
+                            <div class="log-select-wrapper">
+                                <label for="log-camera-select" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; display: block; text-align: left;">Camera Profile:</label>
+                                <select id="log-camera-select" class="log-select">
+                                    <option value="Apple Log">Apple Log (iPhone)</option>
+                                    <option value="Sony S-Log3">Sony S-Log3</option>
+                                    <option value="Canon C-Log">Canon C-Log 2/3</option>
+                                    <option value="Panasonic V-Log">Panasonic V-Log</option>
+                                    <option value="Arri LogC3">Arri LogC3</option>
+                                </select>
+                            </div>
+                            
+                            <button class="grade-btn log-submit-btn" onclick="generateColorGrade(document.getElementById('log-camera-select').value)">
+                                <i class="fas fa-wand-magic-sparkles"></i> Generate CDL Math
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="colorist-results" style="text-align: left;"></div>
+            </div>
+
+            <div class="input-wrapper hidden"> 
+                <div id="image-preview-container" class="hidden">
+                    <div class="preview-box">
+                        <img id="image-preview" src="" alt="Preview">
+                        <button id="remove-image-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+
+                <div id="input-area">
+                    <input type="file" id="chat-image-input" accept="image/*" style="display: none;">
+                    <button id="chat-upload-btn" title="Upload Screenshot"><i class="fas fa-paperclip"></i></button>
+                    
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <p class="input-disclaimer">AI can make mistakes. Always check important info.</p>
+            </div>
+        </div>
+    </div>
+
+  <div id="instruction-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-triangle"></i> Important Instructions !!
+            </div>
+            <div class="modal-body">
+                <p>To ensure the AI edits sync correctly, please follow these exact steps:</p>
+                <ol>
+                    <li><strong>PREREQUISITE:</strong> Ensure your original video file is ALREADY inside the <strong>Media Pool</strong> in DaVinci Resolve.</li>
+                    
+                    <li><strong>IMPORT EDL:</strong> Go to <em>File > Import > Timeline...</em> and select the downloaded <code>.edl</code> file. <br>
+                    <span style="color: #e74c3c; font-weight: bold;">⚠️ IMPORTANT:</span> In the settings window, manually set the <strong>Frame Rate</strong> to match your video (e.g. 30, 60 fps).</li>
+                    
+                    <li><strong>TO VIEW YOUR PREVIOUS TIMELINE:</strong> 
+                        <br>1. Drag your previous timeline from the Media Pool into the current editor.
+                        <br>2. Right-click the clip > Select <em>Decompose in Place</em>.
+                        <br>3. Select <strong>"Using Clips Only"</strong>.
+                        <br><span style="font-size: 0.85em; color: #555; font-style: italic;">(Advanced: Only check "Preserve Audio Data" if you have complex Fairlight Bus routing).</span>
+                    </li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-download-confirm">I Understand - Download File</button>
+                <button id="btn-modal-close" class="text-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="justify-content: center;">
+                <i class="fas fa-user-circle"></i> Welcome
+            </div>
+            <div class="modal-body">
+                <div id="auth-error" style="color: #ff6b6b; margin-bottom: 10px; font-size: 0.9rem;"></div>
+                
+                <input type="email" id="auth-email" placeholder="Email" class="auth-input">
+                <input type="password" id="auth-password" placeholder="Password" class="auth-input">
+
+                <a href="#" id="forgot-password-link" style="display: block; margin-top: 10px; margin-bottom: 15px; font-size: 0.85rem; color: #10b981; text-decoration: none;">Forgot Password?</a>
+                
+                <button id="btn-login" class="auth-btn">Log In</button>
+                <button id="btn-register" class="auth-btn secondary">Create Free Account (3 Credits)</button>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button onclick="document.getElementById('auth-modal').classList.add('hidden')" class="text-btn">Close</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="forgot-modal" class="modal hidden">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <div class="modal-header" style="justify-content: center;">
+            <i class="fas fa-envelope"></i> Reset Password
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.9rem; margin-bottom: 15px; color: var(--text-muted);">Enter your email to receive a reset link.</p>
+            <div id="forgot-message" style="margin-bottom: 10px; font-size: 0.9rem; font-weight: bold;"></div>
+            
+            <input type="email" id="forgot-email" placeholder="Your Email" class="auth-input">
+            <button id="btn-send-reset" class="auth-btn">Send Link</button>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+            <button onclick="document.getElementById('forgot-modal').classList.add('hidden')" class="text-btn">Close</button>
+        </div>
+    </div>
+</div>
+
+<div id="reset-modal" class="modal hidden">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <div class="modal-header" style="justify-content: center;">
+            <i class="fas fa-key"></i> Create New Password
+        </div>
+        <div class="modal-body">
+            <div id="reset-message" style="margin-bottom: 10px; font-size: 0.9rem; font-weight: bold;"></div>
+            <input type="password" id="new-password" placeholder="New Password (min 6 chars)" class="auth-input">
+            <button id="btn-save-password" class="auth-btn">Save Password</button>
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="pricing-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header" style="justify-content: center;">
+                <i class="fas fa-rocket"></i> Upgrade Your Workflow
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                
+                <div id="promo-banner" style="background: linear-gradient(90deg, #e11d48, #be123c); color: white; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);">
+                    🚀 <strong>Limited Time Offer:</strong> First month starting at just <strong>€1.99</strong>!
+                </div>
+                
+                <p style="text-align: center; margin-bottom: 5px; color: var(--text-muted);">Choose a plan to get more AI generation credits. 1 Video Render = 1 Credit.</p>
+                <p style="text-align: center; margin-bottom: 20px; font-size: 0.9rem; color: #10b981; font-weight: bold;">
+                    <i class="fas fa-shield-alt"></i> Easy cancellation anytime. No extra fees.
+                </p>
+                
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    
+                    <div style="background: #1f2937; border: 1px solid var(--border); border-radius: 12px; padding: 20px; width: 280px; text-align: center;">
+                        <h3 style="margin-top: 0; color: white;">Creator</h3>
+                        
+                        <div id="creator-price-display" style="font-size: 2.2rem; font-weight: 800; color: var(--primary); margin: 10px 0;">
+                            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem; margin-right: 8px;">€8.00</span>€1.99<span style="font-size: 1rem; color: var(--text-muted);">/1st mo</span>
+                        </div>
+                        <p id="creator-subtext" style="font-size: 0.8rem; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Then €8.00/month. Cancel anytime.</p>
+
+                        <p style="color: white; font-weight: bold;">50 Video Credits</p>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem; text-align: left;">
+                            <li><i class="fas fa-check" style="color: #10b981; margin-right: 8px;"></i> All AI Tools Included</li>
+                            <li><i class="fas fa-check" style="color: #10b981; margin-right: 8px;"></i> Fast Processing</li>
+                        </ul>
+                        <button onclick="buyPlan('creator')" class="auth-btn" style="background: var(--primary);">Subscribe Now</button>
+                    </div>
+
+                    <div style="background: #1f2937; border: 2px solid var(--primary); border-radius: 12px; padding: 20px; width: 280px; text-align: center; position: relative;">
+                        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">BEST VALUE</div>
+                        <h3 style="margin-top: 0; color: white;">Pro</h3>
+                        
+                        <div id="pro-price-display" style="font-size: 2.2rem; font-weight: 800; color: var(--primary); margin: 10px 0;">
+                            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem; margin-right: 8px;">€16.00</span>€4.99<span style="font-size: 1rem; color: var(--text-muted);">/1st mo</span>
+                        </div>
+                        <p id="pro-subtext" style="font-size: 0.8rem; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Then €16.00/month. Cancel anytime.</p>
+
+                        <p style="color: white; font-weight: bold;">120 Video Credits</p>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem; text-align: left;">
+                            <li><i class="fas fa-check" style="color: #10b981; margin-right: 8px;"></i> For Long Streams & Podcasts</li>
+                            <li><i class="fas fa-check" style="color: #10b981; margin-right: 8px;"></i> All Creator Features</li>
+                        </ul>
+                        <button onclick="buyPlan('pro')" class="auth-btn" style="background: linear-gradient(90deg, #6366f1, #818cf8);">Subscribe Pro</button>
+                    </div> 
+                    
+
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button onclick="document.getElementById('pricing-modal').classList.add('hidden')" class="text-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js?v=3"></script>
+</body>
+</html>

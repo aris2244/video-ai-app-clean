@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+openai
+google-genai
+google-generativeai
+python-multipart
+bcrypt==4.0.1
+python-jose[cryptography]
+passlib[bcrypt]
+sqlalchemy
+imageio-ffmpeg
+stripe
+psycopg2-binary
+boto3
+resend
